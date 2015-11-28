@@ -21,8 +21,8 @@ app.get('/list', function *(next) {
   var parsed = this.query;
   var limit = this.query.limit ? parseInt(this.query.limit) : 20;
   var offset = this.query.of ? parseInt(this.query.of) : 0;
-  var photo = yield this.pg.db.client.query_('SELECT * FROM photo LIMIT $1 OFFSET $2', [limit, offset]);
-  this.body = photo.rows;
+  var photos = yield this.pg.db.client.query_('SELECT * FROM photo LIMIT $1 OFFSET $2', [limit, offset]);
+  this.body = photos.rows;
 });
 
 app.post('/upload', function *(next) {
@@ -30,6 +30,11 @@ app.post('/upload', function *(next) {
   var url = this.request.body.photo;
 	var insert_result = yield this.pg.db.client.query_('INSERT INTO photo (pid, photo_url) values ($1, $2)', [ndl_id, url]);
   this.body = insert_result.rows;
+});
+
+app.get('/', function *(next) {
+  var photos = yield this.pg.db.client.query_('SELECT * FROM photo', []);
+  yield this.render('show', {photos: photos.rows});
 });
 
 app.listen(3000);
