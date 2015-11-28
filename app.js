@@ -18,7 +18,7 @@ app.use(router(app));
  
 app.get('/list', function *(next) {
   var photo = yield this.pg.db.client.query_('SELECT * FROM upload', []);
-  yield this.render('show', {post_id: this.params.post_id, sorted: sorted, htmlDecode: htmlDecode});
+  this.body = photo.rows;
 });
 
 app.post('/upload', function *(next) {
