@@ -18,7 +18,10 @@ app.use(router(app));
 require('koa-qs')(app);;
  
 app.get('/list', function *(next) {
-  var photo = yield this.pg.db.client.query_('SELECT * FROM photo', []);
+  var parsed = this.query;
+  var limit = this.query.limit ? parseInt(this.query.limit) : 20;
+  var offset = this.query.of ? parseInt(this.query.of) : 0;
+  var photo = yield this.pg.db.client.query_('SELECT * FROM photo LIMIT $1 OFFSET $2', [limit, offset]);
   this.body = photo.rows;
 });
 
