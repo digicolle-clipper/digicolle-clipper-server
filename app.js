@@ -25,6 +25,11 @@ app.get('/list', function *(next) {
   this.body = photos.rows;
 });
 
+app.get('/random', function *(next) {
+  var photos = yield this.pg.db.client.query_('SELECT * FROM photo ORDER BY random() LIMIT 1', []);
+  this.body = photos.rows[0];
+});
+
 app.post('/upload', function *(next) {
   var ndl_id = this.request.body.ndl_id;
   var url = this.request.body.photo;
