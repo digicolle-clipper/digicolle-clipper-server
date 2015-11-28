@@ -1,6 +1,6 @@
 {
-  "name": "so-viewer",
-  "description": "Stack Overflow Interaction Viewer",
+  "name": "digicolle-clipper-server",
+  "description": "Server of digicolle-clipper",
   "version": "0.0.1",
   "private": true,
   "scripts": {
