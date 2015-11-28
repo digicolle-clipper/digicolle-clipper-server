@@ -28,7 +28,8 @@ app.get('/list', function *(next) {
 app.post('/upload', function *(next) {
   var ndl_id = this.request.body.ndl_id;
   var url = this.request.body.photo;
-	var insert_result = yield this.pg.db.client.query_('INSERT INTO photo (pid, photo_url) values ($1, $2)', [ndl_id, url]);
+  var description = this.request.body.description ? this.request.body.description : '';
+	var insert_result = yield this.pg.db.client.query_('INSERT INTO photo (pid, photo_url, description) values ($1, $2, $3)', [ndl_id, url, description]);
   this.body = insert_result.rows;
 });
 
