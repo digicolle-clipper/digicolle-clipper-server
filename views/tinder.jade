@@ -2,7 +2,7 @@ extends ./layout.jade
 
 block append css
   meta(name='viewport', content='width=device-width,initial-scale=1,minimun-scale=1,user-scalable=no')
-  link(rel='stylesheet', href='/css/jTinder.css')
+  link(rel='stylesheet', href='/css/tinder.css')
   script(src='/js/jquery.min.js')
 
 block nav
@@ -12,7 +12,7 @@ block contents
     ul
       each photo in photos
         li
-          img(src=photo.photo_url,style='height:100%;')
+          img(src=photo.photo_url)
 
 block footer
   script(src='/js/swing.js')
