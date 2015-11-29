@@ -47,4 +47,4 @@ app.get('/tinder', function *(next) {
   var photos = yield this.pg.db.client.query_('SELECT * FROM photo', []);
   yield this.render('tinder', {photos: photos.rows});
 });
-app.listen(3000);
+app.listen(process.env.PORT || 3000);
