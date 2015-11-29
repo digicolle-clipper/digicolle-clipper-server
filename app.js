@@ -16,7 +16,7 @@ app.use(body());
 app.use(koaPg(settings.pg_connection));
 app.use(router(app));
 require('koa-qs')(app);;
- 
+
 app.get('/list', function *(next) {
   var parsed = this.query;
   var limit = this.query.limit ? parseInt(this.query.limit) : 20;
