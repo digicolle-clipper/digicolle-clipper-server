@@ -4,6 +4,7 @@ var jade = require('jade');
 var router = require('koa-router');
 var body = require('koa-body-parser');
 var koaPg = require('koa-pg');
+var cors = require('kcors');
 var settings = require('./settings.js');
 
 var app = koa();
@@ -11,6 +12,7 @@ var app = koa();
 app.use(views('views', {
   default: 'jade'
 }));
+app.use(cors());
 app.use(require('koa-static')('static'));
 app.use(body());
 app.use(koaPg(settings.pg_connection));
@@ -34,7 +36,7 @@ app.post('/upload', function *(next) {
   var ndl_id = this.request.body.ndl_id;
   var url = this.request.body.photo;
   var description = this.request.body.description ? this.request.body.description : '';
-	var insert_result = yield this.pg.db.client.query_('INSERT INTO photo (pid, photo_url, description) values ($1, $2, $3)', [ndl_id, url, description]);
+  var insert_result = yield this.pg.db.client.query_('INSERT INTO photo (pid, photo_url, description) values ($1, $2, $3)', [ndl_id, url, description]);
   this.body = insert_result.rows;
 });
 

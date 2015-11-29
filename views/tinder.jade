@@ -13,7 +13,8 @@ block contents
     ul
       each photo in photos
         li
-          img(src=photo.photo_url)
+          div#img-wrapper
+            img(src=photo.photo_url)
 
 block footer
   script(src='/js/swing.js')
